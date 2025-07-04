@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <form action="/profile" method="POST">
+            <div class="input-group mb-3 mx-auto w-50 mt-2">
+                <input autocomplete="off" class="form-control" id="email" name="change_email" placeholder="Change Email" type="email">
+            </div>
+            <div class="input-group mb-3 mx-auto w-50">
+                <input autocomplete="off" class="form-control" id="pass" name="change_pass" placeholder="Change Password" type="password">
+                <button class="btn btn-outline-secondary" type="button" onclick="showp()">Show</button>
+            </div>
+            <div class="input-group mb-3 mx-auto w-50">
+                <input autocomplete="off" class="form-control" id="conf" name="confirm" placeholder="Confirm" type="password">
+                <button class="btn btn-outline-secondary" type="button" onclick="showc()">Show</button>
+            </div>
+            <div>
+            <button class="btn btn-primary" type="submit" style="margin-top:0.5%;">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="mb-3 space">
+        <table class="table table-bordered w-auto">
+            <thead class="table-dark">
+                <tr class="table-primary">
+                    <th colspan="7" class="col text-center">Game History</th>
+                </tr>
+                <tr class="table-primary">
+                    <th class="col">Game Type</th>
+                    <th class="col">Letter</th>
+                    <th class="col">WinLossTie</th>
+                    <th class="col">Player</th>
+                    <th class="col">Word List</th>
+                    <th class="col">Score</th>
+                    <th class="col">Date & Time</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                {% if all_data == [] %}
+                    <tr class="table-light">
+                        <td colspan="7" class="text-center">No Game History</td>
+                    </tr>
+                {% endif %}
+                {% if all_data != [] %}
+                    {% for data in all_data %}
+                    <tr class="table-light">
+                        <td class="align-middle" rowspan="2">{{ data.GameType |upper }}</td>
+                        <td class="align-middle" rowspan="2">{{ data.Letter | upper }}</td>
+                        <td class="align-middle">{{ data.WinLossTie1 | upper }}</td>
+                        <td class="align-middle">{{ data.Username1 }}</td>
+                        <td class="align-middle">{{ data.WordList1 | upper }}</td>
+                        <td class="align-middle">{{ data.Score1 }}</td>
+                        <td class="align-middle" rowspan="2">{{ data.DateTime }}</td>
+                    </tr>
+                    <tr class="table-light">
+                        <td class="align-middle">{{ data.WinLossTie2 | upper }}</td>
+                        <td class="align-middle">{{ data.Username2 }}</td>
+                        <td class="align-middle">{{ data.WordList2 | upper }}</td>
+                        <td class="align-middle">{{ data.Score2 }}</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function showp() {
+            var peek = document.getElementById("pass");
+
+            if (peek.type === "password") {
+                peek.type = "text";
+            } else {
+                peek.type = "password";
+            }
+        }
+
+        function showc() {
+            var eye = document.getElementById("conf");
+
+            if (eye.type === "password") {
+                eye.type = "text";
+            } else {
+                eye.type = "password";
+            }
+        }
+    </script>
+{% endblock %}

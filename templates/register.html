@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="POST">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-25" name="username" placeholder="Username" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-25" name="email" placeholder="Email address" type="email" required>
+        </div>
+        <div class="input-group mb-3 mx-auto w-25">
+            <input autocomplete="off" class="form-control" id="pass" name="password" placeholder="Password" type="password">
+            <button class="btn btn-outline-secondary" type="button" onclick="showp()">Show</button>
+        </div>
+        <div class="input-group mb-3 mx-auto w-25">
+            <input autocomplete="off" class="form-control" id="conf" name="confirm" placeholder="Confirm" type="password">
+            <button class="btn btn-outline-secondary" type="button" onclick="showc()">Show</button>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:0.5%;">Submit</button>
+    </form>
+    <script>
+        function showp() {
+            var peek = document.getElementById("pass");
+
+            if (peek.type === "password") {
+                peek.type = "text";
+            } else {
+                peek.type = "password";
+            }
+        }
+
+        function showc() {
+            var eye = document.getElementById("conf");
+
+            if (eye.type === "password") {
+                eye.type = "text";
+            } else {
+                eye.type = "password";
+            }
+        }
+    </script>
+{% endblock %}

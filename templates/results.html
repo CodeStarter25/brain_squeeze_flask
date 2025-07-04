@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        {% for data in all_data %}
+        <h1>Game Results for {{ data.gameselect }}</h1>
+    </div>
+    <!-- Player 1 Results -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <h2>{{ data.p1 }}</h2>
+                <h3><strong>Score:</strong> {{ data.p1_score }}</h3>
+            </div>
+            <div class="col">
+                {% if data.p1_score > data.p2_score %}
+                    <img id="p1-winner" src="static/winner.png" alt="" width="128" height="128" class="rounded float-start">
+                {% endif %}
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th colspan="5">Word List</th>
+                </tr>
+                <tr class="table-info">
+                    <th scope="col">Name</th>
+                    <th scope="col">Animal</th>
+                    <th scope="col">Object</th>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-light">
+                    <td>{{ data.p1_list[0] }}</td>
+                    <td>{{ data.p1_list[1] }}</td>
+                    <td>{{ data.p1_list[2] }}</td>
+                    <td>{{ data.p1_list[3] }}</td>
+                    <td>{{ data.p1_list[4] }}</td>
+                </tr>
+                {% if data.gameselect == "Long" %}
+                    <tr class="table-light">
+                        <td>{{ data.p1_list[5] }}</td>
+                        <td>{{ data.p1_list[6] }}</td>
+                        <td>{{ data.p1_list[7] }}</td>
+                        <td>{{ data.p1_list[8] }}</td>
+                        <td>{{ data.p1_list[9] }}</td>
+                    </tr>
+                    <tr class="table-light">
+                        <td>{{ data.p1_list[10]  }}</td>
+                        <td>{{ data.p1_list[11] }}</td>
+                        <td>{{ data.p1_list[12] }}</td>
+                        <td>{{ data.p1_list[13] }}</td>
+                        <td>{{ data.p1_list[14] }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Player 2 Results -->
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <h2>{{ data.p2 }}</h2>
+                <h3><strong>Score:</strong> {{ data.p2_score }}</h3>
+            </div>
+            <div class="col">
+                {% if data.p2_score > data.p1_score %}
+                    <img id="p2-winner" src="static/winner.png" alt="" width="128" height="128" class="rounded float-start">
+                {% endif %}
+            </div>
+        </div>        
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th colspan="5">Word List</th>
+                </tr>
+                <tr class="table-info">
+                    <th scope="col">Name</th>
+                    <th scope="col">Animal</th>
+                    <th scope="col">Object</th>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-light">
+                    <td>{{ data.p2_list[0] }}</td>
+                    <td>{{ data.p2_list[1] }}</td>
+                    <td>{{ data.p2_list[2] }}</td>
+                    <td>{{ data.p2_list[3] }}</td>
+                    <td>{{ data.p2_list[4] }}</td>
+                </tr>
+                {% if data.gameselect == "Long" %}
+                    <tr class="table-light">
+                        <td>{{ data.p2_list[5] }}</td>
+                        <td>{{ data.p2_list[6] }}</td>
+                        <td>{{ data.p2_list[7] }}</td>
+                        <td>{{ data.p2_list[8] }}</td>
+                        <td>{{ data.p2_list[9] }}</td>
+                    </tr>
+                    <tr class="table-light">
+                        <td>{{ data.p2_list[10]  }}</td>
+                        <td>{{ data.p2_list[11] }}</td>
+                        <td>{{ data.p2_list[12] }}</td>
+                        <td>{{ data.p2_list[13] }}</td>
+                        <td>{{ data.p2_list[14] }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>         
+    </div>
+
+    <!-- Play Again -->
+    <div class="actions">
+        <button onclick="location.href='/login'" class="btn btn-primary" >Play {{ data.gameselect }} Again </button>
+        <button onclick="location.href='/'" class="btn btn-primary">Play Different</button>
+        {% endfor %}
+
+    </div>
+{% endblock %}

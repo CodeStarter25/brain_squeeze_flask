@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="container-fluid sect" style="margin-top:0px;">
+        <h1>Welcome to Brain Squeeze</h1>
+        <h4>This is a simple game played by many well before the times of cell phones and the widespread internet. It required only 3 things: a pen, a piece of paper and your own mind. It took hard work, sometimes team effort and confidence in your own knowledge to attempt to play. 
+        </h4>
+        <h4 style="margin-top:20px;">
+        This iteration is short and sweet, let your imagination run wild for how long this game can actually go for if you went through all the letters in the language. Hours will fly by, spent on stressing and squeezing out every last brain connection available to find the answer. Venture if you dare, find that smart opponent and take up the challenge. Play the game, brag all day about it.
+        </h4>
+    </div>
+    <div class="container-fluid sect">
+        <h1> The Rules of the Brain Squeeze</h1>
+            <h4>
+                <ul>
+                <li>This is a 2 player game (for now, play with the friend beside you).</li>
+                <li>Upon starting a game, each player will take a turn to enter thier answers. When ready, the player will click start and a random letter will be generated and the timer will start.</li>
+                <li>The player each player will have 30 or 60 seconds to enter thier answers.</li>
+                <li>Once the points are calculated, the player with the most points will be declared the winner.</li>
+                <li>In the case of a tie, the players will be able to play another round with a new letter until a winner is decided.</li>
+                </ul>
+            </h4>
+    </div>
+    <div class="container-fluid sect">
+        <h1> The Categories</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-info">
+                    <th scope="col">Name</th>
+                    <th scope="col">Animal</th>
+                    <th scope="col">Object</th>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="container-fluid sect">
+        <h1>The Scoring</h1>
+        <h4>Each person will start with 50 points (the maximum score for all 5 words times 10). The points will then be calculated based on the following rules: </h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Answer</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Unique</th>
+                    <td>No Change</td>
+                </tr>
+                <tr>
+                    <th scope="row">Same</th>
+                    <td>- 5</td>
+                </tr>
+                <tr>
+                    <th scope="row">Incorrect Spelling or Category</th>
+                    <td>- 5</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>
+            Once the points are calculated automatically, either there will be a single winner or, in the case of tie, another round with a new letter will start until a winner is decided. If you register and sign in before starting a round, you can keep track of your answers, people you have played against and win/loss rate.
+        </h4>
+    </div>
+    <div class="container-fluid sect">
+        <h1>Start a Game</h1>
+        <h4>
+        To start a game, please select the type of game you would like to play. You can choose from the following:
+        <ul><br>
+            <li>Quick is a 30 seconds game for 1 round only.</li>
+            <li>Extra Time is a 60 seconds game for 1 round only.</li>
+            <li>Long is 3 rounds of 60 seconds.</li>
+        </ul>
+        Once you have chosen your option, you will be allowed to chose to sign in or play your game. <span style="font-weight: bold;"> <br><br>Reminder: Signing in will allow you to keep a record of your games and answers, so do consider signing in before starting a game.</span>
+        </h4>
+        <form action="/" method="POST">
+            <div class="row" style="margin-top:30px;">
+                <div class="col-sm-4 d-grid gap-2">
+                    <button class="btn btn-primary spots" type="submit" name="playgame" value="1">Quick</button>
+                </div>
+                <div class="col-sm-4 d-grid gap-2">
+                    <button class="btn btn-primary spots" type="submit" name="playgame" value="2">Extra Time</button>
+                </div>
+                <div class="col-sm-4 d-grid gap-2">
+                    <button class="btn btn-primary spots" type="submit" name="playgame" value="3">Long</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

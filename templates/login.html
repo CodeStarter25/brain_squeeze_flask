@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+    <form action="/login" method="POST">
+        <div class="mb-3">
+            <div class="container-fluid" style="margin-bottom: 2%;">
+                <h2 style="text-align: center"> Game choice: {{ gameselect }} </h2>
+                <input type="hidden" name="gameselect" value="{{ gameselect }}">
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="r_login" value="1" checked>
+                <label class="form-check-label">No login</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="r_login" value="2">
+                <label class="form-check-label">1-player login</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="r_login" value="3">
+                <label class="form-check-label">2-player login</label>
+            </div>
+        </div>
+        <div id="player1" style="visibility: hidden;">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username1" placeholder="Player 1 Username" type="text">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" name="password1" placeholder="Player 1 Password" type="password">
+            </div>
+        </div>
+        <div id="player2" style="visibility: hidden;margin-top: 1%;">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username2" placeholder="Player 2 Username" type="text">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" name="password2" placeholder="Player 2 Password" type="password">
+            </div>
+            <div class="mb-3">
+            <button class="btn btn-primary btn-2 form-check-inline" id="play-button" style="visibility: visible;" type="submit" >Lets play</button>
+            <button class="btn btn-primary btn-2 form-check-inline" id="log-button" style="visibility: hidden;" type="submit" >Login</button>
+            </div>
+        </div>        
+    </form>
+    {% if message %}
+        <div class="alert alert-danger mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+    <div class="mt-3">
+        <a href="/register">Don't have an account? Register here.</a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        // Add an event listener to all radio buttons with the name "login"
+        const radios = document.getElementsByName("r_login");
+        const p1 = document.getElementById("player1");
+        const p2 = document.getElementById("player2");
+        const play = document.getElementById("play-button");
+        const log = document.getElementById("log-button");
+
+        radios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+            const login = document.querySelector('input[name="r_login"]:checked').value;
+
+            if (login == "1") {
+                p1.style.visibility = "hidden";
+                p2.style.visibility = "hidden";
+                play.style.visibility = "visible";
+                log.style.visibility = "hidden";
+            } else if (login == "2") {
+                p1.style.visibility = "visible";
+                p2.style.visibility = "hidden";
+                play.style.visibility = "hidden";
+                log.style.visibility = "visible";
+            } else if (login == "3") {
+                p1.style.visibility = "visible";
+                p2.style.visibility = "visible";
+                play.style.visibility = "hidden";
+                log.style.visibility = "visible";
+            }
+        });
+    });
+});
+
+    </script>
+
+{% endblock %}

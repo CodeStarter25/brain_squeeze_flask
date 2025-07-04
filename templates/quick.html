@@ -1,0 +1,210 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quick
+{% endblock %}
+
+{% block main %}
+    <form action="/extra" method="POST">
+        <div class="container" id="player_1" style="visibility: visible;">
+            {% for data in all_data %}
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4>{{ data.p1 }}</h4>
+                </div>
+                <div class="col-sm-4 offset-md-4">
+                        <h4>Random Letter: <span id="p1_random" style="visibility: hidden; font-weight: bold;"> {{ data.letter | upper }}</span></h4>
+                        <input type="hidden" name="letter" value="{{ data.letter }}">
+                </div>
+            </div>
+                <div>
+                    <h1 style="text-align: center">{{ data.gameselect }} Game</h1>
+                    <h3>Time Remaining: <span id="p1_timer">{{ data.timer }}</span> seconds</h3>
+                </div>
+            <button id="p1_start" class="btn btn-primary btn-2">Start</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Name</th>
+                        <th scope="col">Animal</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Movie</th>
+                        <th scope="col">Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <td scope="row"><input autocomplete="off" class="form-control mx-auto w-auto" name="p1answer1" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p1answer2" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p1answer3" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p1answer4" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p1answer5" type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="p1_submit" type="submit" class="btn btn-primary btn-2">Submit</button>
+        </div>
+        <div class="container" id="player_2" style="visibility: hidden">
+            <div class="row">
+                <div class="col-sm-4">
+                        <h4>{{ data.p2 }}</h4>
+                </div>
+                <div class="col-sm-4 offset-md-4">
+                        <h4>Random Letter: <span id="p2_random" style="visibility: hidden; font-weight: bold;"> {{ data.letter | upper }}</span></h4>
+                </div>
+            </div>
+                <h3>Time Remaining: <span id="p2_timer">{{ data.timer }}</span> seconds</h3>
+            {% endfor %}
+            <button id="p2_start" class="btn btn-primary btn-2">Start</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Name</th>
+                        <th scope="col">Animal</th>
+                        <th scope="col">Object</th>
+                        <th scope="col">Movie</th>
+                        <th scope="col">Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <td scope="row"><input autocomplete="off" class="form-control mx-auto w-auto" name="p2answer1" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p2answer2" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p2answer3" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p2answer4" type="text"></td>
+                        <td><input autocomplete="off" class="form-control mx-auto w-auto" name="p2answer5" type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="p2_submit" type="submit" class="btn btn-primary btn-2">Submit</button>
+        </div>
+    </form>
+    <style>
+        /* Initially hide the submit buttons */
+        #p1_submit, #p2_submit {
+            display: none;
+        }
+    </style>
+    <script id="player_data" type="application/json">
+        {{ all_data | tojson }}
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const player_1 = document.getElementById("player_1");
+            const p1_random = document.getElementById("p1_random");
+            const p1_timer = document.getElementById("p1_timer");
+            const p1_start = document.getElementById("p1_start");
+            const p1_submit = document.getElementById("p1_submit");
+
+            const player_2 = document.getElementById("player_2");
+            const p2_random = document.getElementById("p2_random");
+            const p2_timer = document.getElementById("p2_timer");
+            const p2_start = document.getElementById("p2_start");
+            const p2_submit = document.getElementById("p2_submit");
+
+            const form = document.querySelector("form"); // Select the form element
+            const data = JSON.parse(document.getElementById("player_data").textContent);
+
+            // Initially hide Player 2's div
+            player_2.style.visibility = "hidden";
+
+            // Countdown timer function
+            function startCountdown(timerElement, duration, callback) {
+                let timeRemaining = duration;
+                timerElement.textContent = timeRemaining;
+
+                const countdown = setInterval(() => {
+                    timeRemaining--;
+                    timerElement.textContent = timeRemaining;
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(countdown);
+
+                        // Execute callback after timer ends
+                        if (callback) callback();
+                    }
+                }, 1000);
+
+                return countdown; // Return the interval ID to allow clearing it
+            }
+
+            // Start the timer and show the random letter for Player 1
+            p1_start.addEventListener("click", function () {
+
+                // Show the submit button for Player 1
+                p1_submit.style.display = "inline-block"; // Fix: Ensure the button is displayed
+
+                // Start the countdown timer for Player 1
+                const countdown = startCountdown(p1_timer, 30, function () {
+                    // Hide Player 1's screen
+                    player_1.style.visibility = "hidden";
+                    p1_random.style.visibility = "hidden";
+
+                    // Short delay before showing the message
+                    setTimeout(() => {
+                        alert(`Time's up ${ data[0].p1 }! Get ready, ${ data[0].p2 }!`);
+
+                        // After Player 1's timer ends, show Player 2's div
+                        player_2.style.visibility = "visible";
+                    }, 100);
+                });
+
+                // Show the random letter for Player 1
+                p1_random.style.visibility = "visible";
+
+                // Disable the start button to prevent multiple clicks
+                p1_start.disabled = true;
+
+                // Add event listener for Player 1's submit button
+                p1_submit.addEventListener("click", function (event) {
+
+                    // Prevent the form from being submitted
+                    event.preventDefault();
+
+                    // Clear the countdown timer
+                    clearInterval(countdown);
+
+                    // Hide Player 1's screen
+                    player_1.style.visibility = "hidden";
+                    p1_random.style.visibility = "hidden";
+
+                    // Short delay before showing the message
+                    setTimeout(() => {
+                        alert(`Time's up ${ data[0].p1 }! Get ready, ${ data[0].p2 }!`);
+
+                        // After Player 1's timer ends, show Player 2's div
+                        player_2.style.visibility = "visible";
+                    }, 100);
+                }, { once: true }); // Ensure the event listener is only triggered once
+            });
+
+            // Start the timer and show the random letter for Player 2
+            p2_start.addEventListener("click", function () {
+
+                // Show the submit button for Player 2
+                p2_submit.style.display = "inline-block"; // Fix: Ensure the button is displayed
+
+                // Start the countdown timer for Player 2
+                startCountdown(p2_timer, 30, function () {
+                    // Hide Player 2's screen
+                    player_2.style.visibility = "hidden";
+                    p2_random.style.visibility = "hidden";
+
+                    // Delay the pop-up message to ensure the form is submitted first
+                    setTimeout(() => {
+                        alert(`Time's up ${ data[0].p2 }! Thank you both for playing. Click OK to see who won!`);
+
+                        // Automatically submit the form after the message
+                        form.submit();
+                    }, 100); // Adjust the delay as needed
+                });
+
+                // Show the random letter for Player 2
+                p2_random.style.visibility = "visible";
+
+                // Disable the start button to prevent multiple clicks
+                p2_start.disabled = true;
+            });
+        });
+    </script>
+{% endblock %}
