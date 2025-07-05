@@ -9,6 +9,8 @@
 
 <!-- badges: end -->
 
+---
+
 ### 🎥 [Video Demo](https://youtu.be/-s2VwBVfW2w)
 
 ## 📌 Description
