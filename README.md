@@ -5,7 +5,10 @@
 ![Pylint](https://github.com/CodeStarter25/brain_squeeze_flask/actions/workflows/pylint.yml/badge.svg)
 ![CodeQL](https://github.com/CodeStarter25/brain_squeeze_flask/actions/workflows/codeql.yml/badge.svg)
 [![Codecov test coverage](https://codecov.io/gh/CodeStarter25/co2emissionsanalyzer/graph/badge.svg)](https://app.codecov.io/gh/CodeStarter25/co2emissionsanalyzer) 
+![GitHub last commit](https://img.shields.io/github/last-commit/CodeStarter25/brain_squeeze_flask)
 <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" />
+![GitHub stars](https://img.shields.io/github/stars/CodeStarter25/brain_squeeze_flask?style=social)
+
 
 <!-- badges: end -->
 
